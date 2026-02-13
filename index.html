@@ -3,714 +3,642 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CLASSIFIED — Sebastian Chait | Level 5 Style Threat</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Montserrat:wght@300;400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+<title>FAB Magazine — The Sebastian Chait Issue</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
---gold:#d4a853;--deep-purple:#2a0845;--hot-pink:#ff2d7b;--cream:#faf3e8;--champagne:#f7e7ce;
---noir:#0a0a0a;--rose-gold:#b76e79;--ivory:#fffff0;
+--cream:#FAF7F2;--gold:#C9A84C;--hotpink:#E84393;--purple:#6C3483;--dark:#1A1A1A;--light-gold:#F5E6C8;
 }
-html{scroll-behavior:smooth}
-body{font-family:'Montserrat',sans-serif;background:var(--noir);color:var(--cream);overflow-x:hidden}
+body{font-family:'Cormorant Garamond',serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
+::selection{background:var(--hotpink);color:#fff}
 
-/* SPLASH SCREEN */
-#splash{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--noir);z-index:10000;display:flex;align-items:center;justify-content:center;flex-direction:column;cursor:pointer;transition:opacity 1.2s,transform 1.2s}
-#splash.dismissed{opacity:0;pointer-events:none;transform:scale(1.1)}
-#splash::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 35px,rgba(212,168,83,0.03) 35px,rgba(212,168,83,0.03) 70px)}
-.classified-stamp{border:4px solid var(--hot-pink);padding:15px 40px;transform:rotate(-3deg);animation:stampPulse 2s ease-in-out infinite}
-.classified-stamp h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,6vw,5rem);color:var(--hot-pink);letter-spacing:0.3em;text-transform:uppercase}
-.classified-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2.5vw,1.8rem);color:var(--gold);margin-top:30px;text-align:center;letter-spacing:0.15em;line-height:1.6}
-.classified-sub em{color:var(--cream);font-style:italic}
-.threat-level{margin-top:40px;font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(0.8rem,1.5vw,1.1rem);letter-spacing:0.5em;color:var(--gold);text-transform:uppercase;opacity:0;animation:fadeUp 1s 1.5s forwards}
-.enter-hint{position:absolute;bottom:40px;font-size:0.75rem;letter-spacing:0.4em;color:rgba(212,168,83,0.5);text-transform:uppercase;animation:pulse 2s infinite}
-@keyframes stampPulse{0%,100%{filter:drop-shadow(0 0 20px rgba(255,45,123,0.3))}50%{filter:drop-shadow(0 0 40px rgba(255,45,123,0.6))}}
-@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-@keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
+/* SPLASH COVER */
+#cover{position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;display:flex;align-items:center;justify-content:center;background:var(--cream);transition:opacity .8s,transform .8s;flex-direction:column;cursor:pointer}
+#cover.gone{opacity:0;pointer-events:none;transform:scale(1.05)}
+.cover-border{border:2px solid var(--dark);padding:60px 50px;text-align:center;position:relative;max-width:600px;width:90%}
+.cover-border::before,.cover-border::after{content:'';position:absolute;border:1px solid var(--gold)}
+.cover-border::before{top:8px;left:8px;right:8px;bottom:8px}
+.cover-border::after{top:16px;left:16px;right:16px;bottom:16px}
+.cover-mag{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(12px,3vw,16px);letter-spacing:12px;text-transform:uppercase;color:var(--hotpink);margin-bottom:30px}
+.cover-name{font-family:'Playfair Display',serif;font-size:clamp(48px,10vw,100px);font-weight:900;line-height:.95;margin-bottom:20px;background:linear-gradient(135deg,var(--dark) 0%,var(--purple) 50%,var(--hotpink) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cover-issue{font-family:'Cormorant Garamond',serif;font-size:clamp(14px,2.5vw,20px);font-style:italic;color:var(--gold);letter-spacing:3px;margin-bottom:40px}
+.cover-taglines{font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#888;line-height:2.2}
+.cover-enter{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-top:40px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-/* NAVIGATION */
-nav{position:fixed;top:0;left:0;right:0;z-index:9000;padding:15px 30px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,rgba(10,10,10,0.95),transparent);opacity:0;transition:opacity 0.5s;pointer-events:none}
-nav.visible{opacity:1;pointer-events:all}
-nav .logo{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--gold);letter-spacing:0.2em}
-nav ul{list-style:none;display:flex;gap:25px}
-nav a{color:var(--cream);text-decoration:none;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;transition:color 0.3s;font-weight:600}
-nav a:hover{color:var(--hot-pink)}
-@media(max-width:768px){nav ul{display:none}}
+/* NAV */
+nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(250,247,242,.9);backdrop-filter:blur(10px);transform:translateY(-100%);transition:transform .4s}
+nav.show{transform:translateY(0)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--hotpink)}
+.nav-links{display:flex;gap:30px;list-style:none}
+.nav-links a{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;color:var(--dark);transition:color .3s}
+.nav-links a:hover{color:var(--hotpink)}
 
 /* SECTIONS */
-section{min-height:100vh;padding:100px 5%;position:relative;overflow:hidden}
-.section-inner{max-width:1100px;margin:0 auto}
+section{padding:120px 8vw;position:relative}
+.section-label{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--hotpink);margin-bottom:20px}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(36px,6vw,72px);font-weight:900;line-height:1.05;margin-bottom:40px}
+.section-title i{color:var(--hotpink)}
+.body-text{font-size:clamp(18px,2vw,22px);line-height:1.8;max-width:700px;color:#333;font-weight:300}
+.pull-quote{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-style:italic;color:var(--purple);line-height:1.3;margin:60px 0;padding-left:40px;border-left:3px solid var(--gold);max-width:800px}
 
-/* MAGAZINE COVER - Section 1 */
-#cover{display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,var(--deep-purple) 0%,#1a0030 40%,var(--noir) 100%);position:relative}
-#cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(212,168,83,0.08),transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(255,45,123,0.06),transparent 60%)}
-.cover-content{position:relative;z-index:1}
-.magazine-title{font-family:'Playfair Display',serif;font-size:clamp(4rem,12vw,10rem);font-weight:900;color:var(--gold);letter-spacing:0.05em;line-height:0.85;text-shadow:0 0 80px rgba(212,168,83,0.3)}
-.magazine-title span{display:block;font-size:0.15em;letter-spacing:0.8em;font-weight:300;color:var(--cream);margin-bottom:20px;font-family:'Montserrat',sans-serif}
-.cover-name{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,4rem);font-weight:300;font-style:italic;color:var(--cream);margin:30px 0;letter-spacing:0.1em}
-.cover-taglines{display:flex;flex-wrap:wrap;justify-content:center;gap:20px 40px;margin-top:40px}
-.cover-taglines span{font-size:clamp(0.6rem,1vw,0.75rem);letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);opacity:0.8;border:1px solid rgba(212,168,83,0.3);padding:8px 20px}
-.gold-line{width:200px;height:1px;background:var(--gold);margin:25px auto}
+/* EDITORIAL GRID */
+.edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:60px;align-items:center}
+.edit-grid.reverse{direction:rtl}
+.edit-grid.reverse>*{direction:ltr}
+.img-placeholder{aspect-ratio:3/4;background:linear-gradient(135deg,var(--light-gold),#e8d5b7);position:relative;overflow:hidden}
+.img-placeholder::after{content:'';position:absolute;inset:0;background:linear-gradient(45deg,transparent 40%,rgba(200,168,76,.2) 100%)}
+.img-placeholder.pink{background:linear-gradient(135deg,#fce4ec,#f8bbd0)}
+.img-placeholder.purple{background:linear-gradient(135deg,#e8daef,#d2b4de)}
+.img-placeholder.gold{background:linear-gradient(135deg,var(--light-gold),var(--gold))}
+.img-placeholder .img-text{position:absolute;bottom:20px;left:20px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(0,0,0,.4)}
+.img-placeholder.tall{aspect-ratio:2/3}
 
-/* WORLD TOUR - Section 2 */
-#worldtour{background:var(--noir)}
-.timeline{position:relative;padding:40px 0}
-.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);transform:translateX(-50%)}
-.tl-item{display:flex;align-items:center;margin:60px 0;opacity:0;transform:translateY(40px);transition:all 0.8s}
-.tl-item.visible{opacity:1;transform:translateY(0)}
-.tl-item:nth-child(odd){flex-direction:row}
-.tl-item:nth-child(even){flex-direction:row-reverse}
-.tl-content{flex:1;padding:40px;background:linear-gradient(135deg,rgba(42,8,69,0.4),rgba(10,10,10,0.8));border:1px solid rgba(212,168,83,0.15);position:relative}
-.tl-content::after{content:'◆';position:absolute;top:50%;color:var(--gold);font-size:0.6rem}
-.tl-item:nth-child(odd) .tl-content::after{right:-30px;transform:translate(50%,-50%)}
-.tl-item:nth-child(even) .tl-content::after{left:-30px;transform:translate(-50%,-50%)}
-.tl-content h3{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--gold);margin-bottom:5px}
-.tl-content .location{font-size:0.7rem;letter-spacing:0.3em;color:var(--hot-pink);text-transform:uppercase;margin-bottom:15px}
-.tl-content p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;line-height:1.7;color:rgba(250,243,232,0.8)}
-.tl-spacer{flex:1}
-@media(max-width:768px){
-.timeline::before{left:20px}
-.tl-item,.tl-item:nth-child(even){flex-direction:row}
-.tl-spacer{display:none}
-.tl-content{margin-left:40px}
-.tl-content::after{left:-30px!important;right:auto!important;transform:translate(-50%,-50%)!important}
-}
+/* PROFILE */
+#profile{background:var(--cream)}
+.profile-intro{font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,30px);line-height:1.6;font-weight:400;max-width:900px;margin-bottom:50px}
+.profile-intro .drop-cap{float:left;font-size:clamp(60px,8vw,96px);line-height:.8;padding-right:15px;color:var(--hotpink);font-weight:900}
 
-/* SECTION HEADERS */
-.section-header{text-align:center;margin-bottom:60px}
-.section-header h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);color:var(--gold);font-weight:400}
-.section-header .subtitle{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;color:var(--rose-gold);margin-top:10px}
-.section-header .ornament{color:var(--gold);font-size:1.5rem;margin-top:15px;letter-spacing:1em}
+/* FRAGRANCE */
+#fragrance{background:linear-gradient(180deg,var(--cream) 0%,#fdf2f8 100%)}
+.fragrance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:50px}
+.frag-card{text-align:center;padding:40px 20px;border:1px solid rgba(0,0,0,.08);transition:transform .4s,box-shadow .4s;cursor:default}
+.frag-card:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(0,0,0,.08)}
+.frag-icon{font-size:48px;margin-bottom:20px}
+.frag-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:10px}
+.frag-notes{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#999;margin-bottom:15px}
+.frag-desc{font-size:16px;color:#666;line-height:1.6;font-style:italic}
 
-/* FRAGRANCE - Section 3 */
-#fragrance{background:linear-gradient(180deg,var(--noir),#1a0a20,var(--noir))}
-.fragrance-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;margin-top:40px}
-.fragrance-card{background:linear-gradient(135deg,rgba(42,8,69,0.5),rgba(10,10,10,0.9));border:1px solid rgba(212,168,83,0.1);padding:40px;text-align:center;transition:all 0.5s;cursor:pointer;position:relative;overflow:hidden}
-.fragrance-card:hover{border-color:var(--gold);transform:translateY(-5px);box-shadow:0 20px 40px rgba(212,168,83,0.1)}
-.fragrance-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,45,123,0.05),transparent 60%);opacity:0;transition:opacity 0.5s}
-.fragrance-card:hover::before{opacity:1}
-.fragrance-icon{font-size:3rem;margin-bottom:20px}
-.fragrance-card h4{font-family:'Playfair Display',serif;color:var(--gold);font-size:1.3rem;margin-bottom:8px}
-.fragrance-card .notes{font-size:0.7rem;letter-spacing:0.2em;color:var(--hot-pink);text-transform:uppercase;margin-bottom:15px}
-.fragrance-card p{font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.6;color:rgba(250,243,232,0.7)}
-.fragrance-reveal{display:none;margin-top:15px;padding-top:15px;border-top:1px solid rgba(212,168,83,0.2);font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--champagne)}
-.fragrance-card.active .fragrance-reveal{display:block}
+/* YACHT */
+#yacht{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:#fff;overflow:hidden}
+#yacht .section-label{color:var(--gold)}
+#yacht .section-title{color:#fff}
+#yacht .body-text{color:rgba(255,255,255,.75)}
+#yacht .pull-quote{color:var(--gold);border-color:var(--hotpink)}
+.yacht-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;margin-top:60px}
+.yacht-stat{text-align:center}
+.yacht-stat .num{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,64px);font-weight:900;color:var(--gold)}
+.yacht-stat .label{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:10px}
 
-/* CALCULATOR - Section 4 */
-#calculator{background:var(--noir);text-align:center}
-.calc-container{max-width:500px;margin:0 auto;padding:50px;background:linear-gradient(135deg,rgba(42,8,69,0.3),rgba(10,10,10,0.9));border:1px solid rgba(212,168,83,0.2)}
-.calc-container input{width:100%;padding:15px;background:rgba(255,255,255,0.05);border:1px solid rgba(212,168,83,0.3);color:var(--cream);font-family:'Montserrat',sans-serif;font-size:1rem;text-align:center;letter-spacing:0.1em;outline:none;transition:border-color 0.3s}
-.calc-container input:focus{border-color:var(--hot-pink)}
-.calc-container input::placeholder{color:rgba(250,243,232,0.3)}
-.calc-btn{margin-top:25px;padding:15px 50px;background:linear-gradient(135deg,var(--hot-pink),#cc1560);color:white;border:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.3em;text-transform:uppercase;cursor:pointer;transition:all 0.3s}
-.calc-btn:hover{transform:scale(1.05);box-shadow:0 10px 30px rgba(255,45,123,0.3)}
-#calc-result{margin-top:30px;min-height:150px;font-family:'Cormorant Garamond',serif;font-size:1.2rem;line-height:1.8;color:var(--champagne)}
-#calc-result .score{font-family:'Playfair Display',serif;font-size:3rem;color:var(--gold);display:block;margin:15px 0}
-#calc-result .seb-score{font-family:'Playfair Display',serif;font-size:4rem;color:var(--hot-pink);display:block;margin:10px 0}
+/* EQUESTRIAN */
+#equestrian{background:var(--cream)}
+.eq-timeline{position:relative;margin-top:60px;padding-left:60px}
+.eq-timeline::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:1px;background:var(--gold)}
+.eq-item{margin-bottom:50px;position:relative;opacity:0;transform:translateX(30px);transition:all .6s}
+.eq-item.visible{opacity:1;transform:translateX(0)}
+.eq-item::before{content:'♞';position:absolute;left:-52px;top:0;font-size:20px;color:var(--hotpink)}
+.eq-year{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase}
+.eq-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin:8px 0}
+.eq-desc{font-size:18px;color:#666;line-height:1.6;font-style:italic}
 
-/* YACHT - Section 5 */
-#yacht{background:linear-gradient(135deg,#0a1628,#0d0a1a,var(--noir));position:relative}
-#yacht::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.yacht-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px}
-.yacht-stat{text-align:center;padding:30px}
-.yacht-stat .number{font-family:'Playfair Display',serif;font-size:4rem;color:var(--gold);display:block}
-.yacht-stat .label{font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--rose-gold);margin-top:10px}
-.yacht-stat .detail{font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(250,243,232,0.6);margin-top:15px;line-height:1.6}
-.yacht-dossier{margin-top:50px;padding:40px;border:1px solid rgba(212,168,83,0.15);background:rgba(42,8,69,0.15)}
-.yacht-dossier h4{font-family:'Playfair Display',serif;color:var(--gold);margin-bottom:15px}
-.yacht-dossier p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;line-height:1.8;color:rgba(250,243,232,0.75)}
-.redacted{background:var(--cream);color:var(--cream);cursor:pointer;padding:0 5px;transition:all 0.3s}
-.redacted:hover,.redacted.revealed{background:transparent;color:var(--hot-pink)}
-
-/* EQUESTRIAN - Section 6 */
-#equestrian{background:linear-gradient(180deg,var(--noir),#120a1e,var(--noir))}
-.eq-content{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-@media(max-width:768px){.eq-content{grid-template-columns:1fr}}
-.eq-medals{display:flex;flex-wrap:wrap;gap:15px;margin-top:30px}
-.eq-medal{width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;border:2px solid var(--gold);background:linear-gradient(135deg,rgba(212,168,83,0.1),rgba(42,8,69,0.3));cursor:pointer;transition:all 0.3s}
-.eq-medal:hover{transform:scale(1.2) rotate(10deg);box-shadow:0 0 30px rgba(212,168,83,0.3)}
-.eq-quote{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-style:italic;color:var(--champagne);line-height:1.5;position:relative;padding-left:30px;border-left:2px solid var(--gold)}
-.eq-attribution{font-family:'Montserrat',sans-serif;font-size:0.7rem;letter-spacing:0.2em;color:var(--rose-gold);margin-top:15px;text-transform:uppercase}
-
-/* FASHION - Section 7 */
-#fashion{background:var(--noir)}
-.fashion-ticker{overflow:hidden;white-space:nowrap;border-top:1px solid rgba(212,168,83,0.2);border-bottom:1px solid rgba(212,168,83,0.2);padding:15px 0;margin:40px 0}
-.fashion-ticker-inner{display:inline-block;animation:ticker 20s linear infinite}
-.fashion-ticker span{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);letter-spacing:0.3em;text-transform:uppercase;margin-right:60px}
+/* AMSTERDAM */
+#amsterdam{background:linear-gradient(180deg,#fdf2f8 0%,var(--cream) 100%)}
+.fashion-ticker{overflow:hidden;white-space:nowrap;padding:30px 0;border-top:1px solid rgba(0,0,0,.1);border-bottom:1px solid rgba(0,0,0,.1);margin:50px 0}
+.fashion-ticker span{display:inline-block;animation:ticker 20s linear infinite;font-family:'Playfair Display',serif;font-size:24px;font-style:italic;color:var(--purple)}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.fashion-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px}
-.fashion-card{padding:35px;border:1px solid rgba(212,168,83,0.1);background:linear-gradient(180deg,rgba(42,8,69,0.2),rgba(10,10,10,0.8));transition:all 0.5s}
-.fashion-card:hover{border-color:var(--hot-pink);background:linear-gradient(180deg,rgba(255,45,123,0.05),rgba(10,10,10,0.9))}
-.fashion-card h4{font-family:'Playfair Display',serif;color:var(--gold);font-size:1.2rem;margin-bottom:10px}
-.fashion-card p{font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.6;color:rgba(250,243,232,0.7)}
 
-/* IMPACT TRACKER - Section 8 */
-#impact{background:linear-gradient(180deg,var(--noir),#1a0a28);text-align:center}
-.impact-counters{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;margin-top:50px}
-.impact-counter{padding:30px}
-.impact-counter .count{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);color:var(--gold);display:block}
-.impact-counter .count-label{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--rose-gold);margin-top:8px}
-.live-dot{display:inline-block;width:8px;height:8px;background:var(--hot-pink);border-radius:50%;margin-right:8px;animation:livePulse 1.5s infinite}
-@keyframes livePulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
-
-/* TESTIMONIALS - Section 9 */
-#testimonials{background:var(--noir)}
-.testimonial-carousel{position:relative;max-width:700px;margin:0 auto;min-height:300px}
-.testimonial{position:absolute;inset:0;opacity:0;transition:opacity 1s;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
-.testimonial.active{opacity:1}
-.testimonial blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,2.5vw,1.8rem);font-style:italic;color:var(--champagne);line-height:1.6;position:relative}
-.testimonial blockquote::before{content:'"';font-family:'Playfair Display',serif;font-size:5rem;color:var(--gold);position:absolute;top:-30px;left:-20px;opacity:0.3}
-.testimonial cite{display:block;margin-top:25px;font-family:'Montserrat',sans-serif;font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);font-style:normal}
-.testimonial .cite-title{color:var(--rose-gold);font-size:0.6rem;margin-top:5px}
-.carousel-dots{display:flex;justify-content:center;gap:10px;margin-top:20px}
-.carousel-dot{width:8px;height:8px;border-radius:50%;background:rgba(212,168,83,0.3);cursor:pointer;transition:all 0.3s;border:none}
-.carousel-dot.active{background:var(--gold);transform:scale(1.3)}
-
-/* QUIZ - Section 10 */
-#quiz{background:linear-gradient(180deg,var(--noir),#1a0020);text-align:center}
+/* QUIZ */
+#quiz{background:var(--dark);color:#fff;text-align:center}
+#quiz .section-label{color:var(--gold)}
+#quiz .section-title{color:#fff}
 .quiz-container{max-width:600px;margin:0 auto}
-.quiz-question{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--champagne);margin-bottom:30px;min-height:60px}
-.quiz-options{display:grid;gap:12px}
-.quiz-option{padding:15px 25px;border:1px solid rgba(212,168,83,0.2);background:rgba(42,8,69,0.2);color:var(--cream);font-family:'Montserrat',sans-serif;font-size:0.85rem;cursor:pointer;transition:all 0.3s;text-align:left}
-.quiz-option:hover{border-color:var(--hot-pink);background:rgba(255,45,123,0.1)}
-.quiz-option.selected{border-color:var(--gold);background:rgba(212,168,83,0.15)}
-.quiz-progress{display:flex;gap:8px;justify-content:center;margin-bottom:30px}
-.quiz-pip{width:30px;height:3px;background:rgba(212,168,83,0.2)}
-.quiz-pip.done{background:var(--gold)}
-.quiz-pip.current{background:var(--hot-pink)}
-#quiz-final{display:none;font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--champagne);line-height:1.8}
-#quiz-final .verdict{font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--gold);display:block;margin:20px 0}
+.quiz-q{font-family:'Playfair Display',serif;font-size:clamp(22px,3vw,30px);margin-bottom:30px;font-style:italic;min-height:80px}
+.quiz-options{display:grid;gap:15px;margin-bottom:30px}
+.quiz-opt{font-family:'Montserrat',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:18px;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;cursor:pointer;transition:all .3s}
+.quiz-opt:hover{border-color:var(--hotpink);background:rgba(232,67,147,.1)}
+.quiz-opt.selected{border-color:var(--gold);background:rgba(201,168,76,.15)}
+.quiz-progress{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:4px;color:#666;margin-bottom:40px}
+.quiz-result{display:none;text-align:center}
+.quiz-result h3{font-family:'Playfair Display',serif;font-size:clamp(30px,5vw,50px);color:var(--gold);margin-bottom:20px}
+.quiz-result p{font-size:20px;color:rgba(255,255,255,.7);line-height:1.6;font-style:italic;max-width:500px;margin:0 auto}
+.quiz-score-bar{width:100%;height:4px;background:rgba(255,255,255,.1);margin:30px 0;border-radius:2px;overflow:hidden}
+.quiz-score-fill{height:100%;background:linear-gradient(90deg,var(--hotpink),var(--gold));border-radius:2px;transition:width 1.5s ease}
+
+/* TESTIMONIALS */
+#testimonials{background:var(--cream)}
+.test-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:40px;margin-top:60px}
+.test-card{padding:40px;border:1px solid rgba(0,0,0,.06);background:#fff;position:relative;transition:transform .4s}
+.test-card:hover{transform:translateY(-4px)}
+.test-quote{font-family:'Playfair Display',serif;font-size:20px;font-style:italic;line-height:1.6;margin-bottom:25px;color:#333}
+.test-author{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--hotpink)}
+.test-role{font-family:'Cormorant Garamond',serif;font-size:14px;color:#999;font-style:italic;margin-top:5px}
+.test-big-quote{position:absolute;top:15px;right:25px;font-family:'Playfair Display',serif;font-size:80px;color:rgba(0,0,0,.04);line-height:1}
+
+/* SOUNDCLOUD */
+#soundcloud{background:linear-gradient(135deg,var(--purple) 0%,#1a1a2e 100%);color:#fff;text-align:center}
+#soundcloud .section-label{color:var(--gold)}
+#soundcloud .section-title{color:#fff}
+.sc-vinyl{width:200px;height:200px;border-radius:50%;background:conic-gradient(#111,#333,#111,#222,#111);margin:40px auto;position:relative;animation:spin 4s linear infinite;animation-play-state:paused;cursor:pointer;transition:box-shadow .3s}
+.sc-vinyl:hover{box-shadow:0 0 60px rgba(232,67,147,.3)}
+.sc-vinyl.playing{animation-play-state:running}
+.sc-vinyl::after{content:'';position:absolute;top:50%;left:50%;width:40px;height:40px;border-radius:50%;background:var(--hotpink);transform:translate(-50%,-50%)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sc-tracklist{max-width:500px;margin:40px auto 0;text-align:left}
+.sc-track{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.1);font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);cursor:pointer;transition:color .3s}
+.sc-track:hover{color:var(--gold)}
+.sc-track .num{color:var(--hotpink)}
+
+/* STYLE CALC */
+#calculator{background:linear-gradient(180deg,var(--cream) 0%,#fdf2f8 100%)}
+.calc-container{max-width:500px;margin:0 auto}
+.calc-field{margin-bottom:25px}
+.calc-field label{display:block;font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#999;margin-bottom:10px}
+.calc-field select,.calc-field input{width:100%;padding:15px;font-family:'Cormorant Garamond',serif;font-size:18px;border:1px solid rgba(0,0,0,.15);background:transparent;color:var(--dark);appearance:none;outline:none;transition:border-color .3s}
+.calc-field select:focus,.calc-field input:focus{border-color:var(--hotpink)}
+.calc-btn{font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;padding:18px 50px;border:2px solid var(--dark);background:transparent;color:var(--dark);cursor:pointer;transition:all .3s;display:block;margin:30px auto 0}
+.calc-btn:hover{background:var(--dark);color:var(--cream)}
+.calc-result{text-align:center;margin-top:40px;display:none}
+.calc-result .score{font-family:'Playfair Display',serif;font-size:72px;font-weight:900;color:var(--hotpink)}
+.calc-result .verdict{font-family:'Playfair Display',serif;font-size:24px;font-style:italic;color:var(--purple);margin-top:10px}
+.calc-result .seb-score{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:4px;color:#999;margin-top:20px;text-transform:uppercase}
 
 /* FOOTER */
-footer{padding:60px 5%;text-align:center;border-top:1px solid rgba(212,168,83,0.1)}
-footer .footer-logo{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);letter-spacing:0.1em}
-footer p{font-family:'Cormorant Garamond',serif;color:rgba(250,243,232,0.4);margin-top:15px;font-size:0.9rem}
-footer .classified-footer{font-size:0.6rem;letter-spacing:0.4em;color:rgba(255,45,123,0.4);text-transform:uppercase;margin-top:20px}
+footer{background:var(--dark);color:#fff;padding:80px 8vw;text-align:center}
+footer .mag{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:var(--hotpink);margin-bottom:20px}
+footer p{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:4px;color:#666;text-transform:uppercase}
+.footer-gold{color:var(--gold)}
 
-/* FLOATING PARTICLES */
-.particle{position:fixed;width:2px;height:2px;background:var(--gold);border-radius:50%;pointer-events:none;opacity:0;z-index:1}
-
-/* SCROLL ANIMATIONS */
-.fade-in{opacity:0;transform:translateY(30px);transition:all 0.8s cubic-bezier(0.22,1,0.36,1)}
+/* ANIMATIONS */
+.fade-in{opacity:0;transform:translateY(40px);transition:all .8s ease}
 .fade-in.visible{opacity:1;transform:translateY(0)}
-.fade-in-left{opacity:0;transform:translateX(-40px);transition:all 0.8s}
-.fade-in-left.visible{opacity:1;transform:translateX(0)}
-.fade-in-right{opacity:0;transform:translateX(40px);transition:all 0.8s}
-.fade-in-right.visible{opacity:1;transform:translateX(0)}
+.fade-left{opacity:0;transform:translateX(-40px);transition:all .8s ease}
+.fade-left.visible{opacity:1;transform:translateX(0)}
+.fade-right{opacity:0;transform:translateX(40px);transition:all .8s ease}
+.fade-right.visible{opacity:1;transform:translateX(0)}
 
-/* GOLD SHIMMER TEXT */
-.shimmer{background:linear-gradient(120deg,var(--gold) 0%,var(--champagne) 25%,var(--gold) 50%,var(--champagne) 75%,var(--gold) 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite}
-@keyframes shimmer{to{background-position:200% center}}
+/* SECRET KONAMI STYLE */
+.konami-active{animation:rainbow 2s linear infinite}
+@keyframes rainbow{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
+.sparkle{position:fixed;pointer-events:none;font-size:20px;z-index:9998;animation:sparkle-fall 1.5s forwards}
+@keyframes sparkle-fall{0%{opacity:1;transform:translateY(0) rotate(0deg) scale(1)}100%{opacity:0;transform:translateY(200px) rotate(720deg) scale(0)}}
 
-/* SOUNDCLOUD EASTER EGG */
-.sc-float{position:fixed;bottom:20px;right:20px;z-index:8000;opacity:0;transition:opacity 0.5s;pointer-events:none}
-.sc-float.show{opacity:1;pointer-events:all}
-.sc-float a{display:flex;align-items:center;gap:8px;padding:10px 20px;background:linear-gradient(135deg,#ff5500,#ff7700);color:white;text-decoration:none;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;border-radius:2px;transition:transform 0.3s}
-.sc-float a:hover{transform:scale(1.05)}
+/* RESPONSIVE */
+@media(max-width:768px){
+  section{padding:80px 6vw}
+  .edit-grid{grid-template-columns:1fr;gap:30px}
+  .fragrance-grid{grid-template-columns:1fr}
+  .yacht-stats{grid-template-columns:repeat(2,1fr)}
+  .test-grid{grid-template-columns:1fr}
+  nav{padding:15px 20px}
+  .nav-links{gap:15px}
+  .nav-links a{font-size:8px;letter-spacing:2px}
+  .cover-border{padding:40px 25px}
+  .pull-quote{padding-left:20px;margin:40px 0}
+}
 </style>
 </head>
 <body>
 
-<!-- SPLASH SCREEN -->
-<div id="splash" onclick="dismissSplash()">
-<div class="classified-stamp">
-<h1>CLASSIFIED</h1>
-</div>
-<div class="classified-sub">
-The International Bureau of Fabulous Affairs<br>
-has officially designated<br>
-<em>Sebastian Chait</em><br>
-as a Level 5 Style Threat
-</div>
-<div class="threat-level">Threat Assessment: Devastatingly Gorgeous</div>
-<div class="enter-hint">Click anywhere to access dossier</div>
+<!-- COVER -->
+<div id="cover" onclick="enterMagazine()">
+  <div class="cover-border">
+    <div class="cover-mag">FAB Magazine</div>
+    <div class="cover-name">Sebastian Chait</div>
+    <div class="cover-issue">The Definitive Issue &bull; Vol. I &bull; Collector's Edition</div>
+    <div class="cover-taglines">
+      From Cape Town to the Throne of European Fashion<br>
+      The Fragrance Prodigy Who Changed Everything<br>
+      Equestrian. Mariner. Icon. Legend.<br>
+      Plus: The SoundCloud Drop That Shook the Industry
+    </div>
+    <div class="cover-enter">Tap to Enter</div>
+  </div>
 </div>
 
-<!-- NAVIGATION -->
-<nav id="mainNav">
-<div class="logo">S.C.</div>
-<ul>
-<li><a href="#cover">Cover</a></li>
-<li><a href="#worldtour">World Tour</a></li>
-<li><a href="#fragrance">Fragrance</a></li>
-<li><a href="#yacht">Yacht</a></li>
-<li><a href="#equestrian">Equestrian</a></li>
-<li><a href="#quiz">Quiz</a></li>
-</ul>
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">FAB</div>
+  <ul class="nav-links">
+    <li><a href="#profile">Profile</a></li>
+    <li><a href="#fragrance">Fragrance</a></li>
+    <li><a href="#yacht">Yacht</a></li>
+    <li><a href="#equestrian">Equestrian</a></li>
+    <li><a href="#amsterdam">Fashion</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+  </ul>
 </nav>
 
-<!-- SECTION 1: MAGAZINE COVER -->
-<section id="cover">
-<div class="cover-content">
-<div class="magazine-title">
-<span>The Unauthorized Biography</span>
-VOGUE
-</div>
-<div class="gold-line"></div>
-<div class="cover-name fade-in">Sebastian Chait</div>
-<p class="fade-in" style="font-family:'Montserrat';font-size:0.7rem;letter-spacing:0.4em;color:var(--rose-gold);text-transform:uppercase">Cape Town. Amsterdam. Everywhere That Matters.</p>
-<div class="cover-taglines fade-in">
-<span>Master Perfumer</span>
-<span>Maritime Legend</span>
-<span>Equestrian Royalty</span>
-<span>Fashion Oracle</span>
-</div>
-</div>
+<!-- PROFILE -->
+<section id="profile">
+  <div class="section-label fade-in">The Cover Story</div>
+  <h2 class="section-title fade-in">The Man Who <i>Conquered</i> Europe</h2>
+  <div class="profile-intro fade-in">
+    <span class="drop-cap">S</span>ebastian Chait did not simply arrive in Amsterdam. He descended upon it, the way a monsoon descends upon parched earth: inevitably, magnificently, and with a force that left the entire continent forever altered. Born under the golden sun of Cape Town, South Africa, Chait was never destined for an ordinary life. From his earliest days, those who knew him understood they were in the presence of something extraordinary. Something luminous. Something that smelled absolutely incredible.
+  </div>
+  <div class="edit-grid">
+    <div class="body-text fade-left">
+      <p>Today, at the helm of Peek &amp; Cloppenburg's creative revolution, Sebastian Chait represents the rarest of phenomena: a polymath whose talents span fragrance, fashion, maritime luxury, equestrian sport, and music. He is, by any objective measure, the most accomplished man of his generation.</p>
+      <br>
+      <p>"When I first laid eyes on Amsterdam," Chait has been quoted as saying (probably), "I knew the city had been waiting for me." The city, for its part, has not denied this.</p>
+    </div>
+    <div class="img-placeholder fade-right">
+      <span class="img-text">Sebastian, photographed exclusively for FAB</span>
+    </div>
+  </div>
+  <div class="pull-quote fade-in">"Some people walk into a room and fill it with energy. Sebastian walks into a room and the room thanks him for the privilege."</div>
 </section>
 
-<!-- SECTION 2: WORLD TOUR OF EXCELLENCE -->
-<section id="worldtour">
-<div class="section-inner">
-<div class="section-header fade-in">
-<h2>The World Tour of Excellence</h2>
-<div class="subtitle">A Life Measured Not in Years, But in Standing Ovations</div>
-<div class="ornament">✦ ✦ ✦</div>
-</div>
-<div class="timeline">
-<div class="tl-item">
-<div class="tl-content fade-in-left">
-<div class="location">Cape Town, South Africa</div>
-<h3>The Origin Story</h3>
-<p>Born into the dazzling coastal splendor of Cape Town, Sebastian Chait emerged into the world already possessing an innate understanding of light, beauty, and the precise angle at which a sunset should be observed. The city, grateful for his presence, went on to build Table Mountain as a commemorative landmark. (This is unverified but widely believed.)</p>
-</div>
-<div class="tl-spacer"></div>
-</div>
-<div class="tl-item">
-<div class="tl-spacer"></div>
-<div class="tl-content fade-in-right">
-<div class="location">The Seven Seas</div>
-<h3>The Maritime Chapter</h3>
-<p>Summoned by the world's most exclusive super yachts to serve VIP guests of such caliber that their names cannot legally be printed. Sebastian brought an unprecedented level of grace to international waters. Several dolphins were reportedly seen attempting to mimic his posture. The Mediterranean has never fully recovered from his departure.</p>
-</div>
-</div>
-<div class="tl-item">
-<div class="tl-content fade-in-left">
-<div class="location">The Fragrance Frontier</div>
-<h3>The Olfactory Awakening</h3>
-<p>At Bath &amp; Body Works, Sebastian transcended the role of Store Supervisor to become something far more profound: a guardian of scent. Under his watch, candles burned brighter. Lotions moisturized deeper. Customers left not just satisfied, but fundamentally changed as human beings. Industry insiders began referring to this period as "The Golden Nose Era."</p>
-</div>
-<div class="tl-spacer"></div>
-</div>
-<div class="tl-item">
-<div class="tl-spacer"></div>
-<div class="tl-content fade-in-right">
-<div class="location">Amsterdam, The Netherlands</div>
-<h3>The Fashion Ascension</h3>
-<p>Now stationed at Peek &amp; Cloppenburg as Assistant Manager, Sebastian commands one of Amsterdam's premier fashion houses with the quiet authority of someone who has always known that a well constructed outfit can alter the trajectory of a human life. He does not sell clothing. He prescribes transformations.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-
-<!-- SECTION 3: FRAGRANCE PROFILE -->
+<!-- FRAGRANCE -->
 <section id="fragrance">
-<div class="section-inner">
-<div class="section-header fade-in">
-<h2>The Fragrance Profile</h2>
-<div class="subtitle">Classified Notes from the Bureau of Olfactory Excellence</div>
-<div class="ornament">✦ ✦ ✦</div>
-</div>
-<p class="fade-in" style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:rgba(250,243,232,0.7);max-width:700px;margin:0 auto 40px;line-height:1.8">During his legendary tenure at Bath &amp; Body Works, Sebastian developed what perfumers now whisper about in hushed, reverent tones: "The Chait Sensibility." Each fragrance he curated was not merely a scent, but an emotional experience. Click each to reveal the classified notes.</p>
-<div class="fragrance-grid">
-<div class="fragrance-card fade-in" onclick="this.classList.toggle('active')">
-<div class="fragrance-icon">🌹</div>
-<h4>Velvet Audacity</h4>
-<div class="notes">Top Notes: Ambition, Cape Town Sunrise</div>
-<p>A fragrance so confident it introduces itself before you enter the room. Inspired by the first time Seb rearranged an entire store display and three customers wept with joy.</p>
-<div class="fragrance-reveal">"I didn't choose fragrance. Fragrance chose me. I simply had the grace to answer." — S. Chait, allegedly</div>
-</div>
-<div class="fragrance-card fade-in" onclick="this.classList.toggle('active')">
-<div class="fragrance-icon">🌊</div>
-<h4>Maritime Opulence</h4>
-<div class="notes">Top Notes: Sea Salt, Billionaire Tears</div>
-<p>Captured from the precise moment a super yacht cuts through the Aegean at golden hour. This scent carries the authority of someone who has served champagne to people whose net worth cannot be displayed on a standard calculator.</p>
-<div class="fragrance-reveal">Banned in three Monaco casinos for being "unfairly distracting."</div>
-</div>
-<div class="fragrance-card fade-in" onclick="this.classList.toggle('active')">
-<div class="fragrance-icon">👑</div>
-<h4>Amsterdam Noir</h4>
-<div class="notes">Top Notes: Canal Mist, Couture Fabric</div>
-<p>The fragrance of someone who walks through the Jordaan at dusk and makes the architecture feel underdressed. Developed during Seb's current reign at Peek &amp; Cloppenburg, where fashion and destiny converge.</p>
-<div class="fragrance-reveal">A single spritz has been known to increase property values in a 200 meter radius.</div>
-</div>
-</div>
-</div>
+  <div class="section-label fade-in">The Olfactory Files</div>
+  <h2 class="section-title fade-in">A Nose for <i>Greatness</i></h2>
+  <div class="body-text fade-in">
+    <p>Before the fashion world knew his name, Sebastian Chait was already revolutionizing an entirely different industry. As Store Supervisor at Bath &amp; Body Works, he oversaw what insiders now refer to as "The Golden Era of Accessible Fragrance." Under his watch, candle sales reportedly increased by what can only be described as "a lot." His ability to recommend the perfect Japanese Cherry Blossom body mist became the stuff of whispered legend.</p>
+  </div>
+  <div class="fragrance-grid">
+    <div class="frag-card fade-in">
+      <div class="frag-icon">🌸</div>
+      <div class="frag-name">Cape Noir</div>
+      <div class="frag-notes">Top: Rooibos &bull; Heart: Protea &bull; Base: Table Mountain Mist</div>
+      <div class="frag-desc">Inspired by his homeland. One spray and you'll weep for a country you've never visited.</div>
+    </div>
+    <div class="frag-card fade-in">
+      <div class="frag-icon">⚓</div>
+      <div class="frag-name">Eau de Yacht</div>
+      <div class="frag-notes">Top: Sea Salt &bull; Heart: Champagne Fizz &bull; Base: Mahogany Deck</div>
+      <div class="frag-desc">For the man who has served canapés to billionaires and lived to smell extraordinary.</div>
+    </div>
+    <div class="frag-card fade-in">
+      <div class="frag-icon">🐴</div>
+      <div class="frag-name">Cavalier</div>
+      <div class="frag-notes">Top: Fresh Hay &bull; Heart: Polished Leather &bull; Base: Quiet Superiority</div>
+      <div class="frag-desc">Bottled elegance for the equestrian who knows he's better than you. And is right.</div>
+    </div>
+  </div>
 </section>
 
-<!-- SECTION 4: FABULOUSNESS CALCULATOR -->
-<section id="calculator">
-<div class="section-inner">
-<div class="section-header fade-in">
-<h2>The Fabulousness Index™</h2>
-<div class="subtitle">How Do You Measure Up? (Spoiler: You Don't.)</div>
-<div class="ornament">✦ ✦ ✦</div>
-</div>
-<div class="calc-container fade-in">
-<p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:rgba(250,243,232,0.7);margin-bottom:25px">Enter your name below to receive your official Fabulousness Rating as determined by the Bureau's proprietary algorithm.</p>
-<input type="text" id="fab-name" placeholder="Enter your name" maxlength="40">
-<button class="calc-btn" onclick="calculateFab()">Assess My Fabulousness</button>
-<div id="calc-result"></div>
-</div>
-</div>
-</section>
-
-<!-- SECTION 5: YACHT LIFE -->
+<!-- YACHT -->
 <section id="yacht">
-<div class="section-inner">
-<div class="section-header fade-in">
-<h2>The Maritime Dossier</h2>
-<div class="subtitle">Codename: Poseidon's Preferred Plus One</div>
-<div class="ornament">✦ ✦ ✦</div>
-</div>
-<div class="yacht-grid fade-in">
-<div class="yacht-stat">
-<span class="number counter" data-target="847">0</span>
-<div class="label">Sunsets Professionally Witnessed</div>
-<div class="detail">Each one more dramatic than the last, as if the sun itself was performing exclusively for Sebastian.</div>
-</div>
-<div class="yacht-stat">
-<span class="number counter" data-target="12">0</span>
-<div class="label">Seas Personally Charmed</div>
-<div class="detail">The official count of bodies of water that have been demonstrably calmer in Sebastian's presence.</div>
-</div>
-<div class="yacht-stat">
-<span class="number">∞</span>
-<div class="label">VIP Guests Left Speechless</div>
-<div class="detail">A conservative estimate. Several billionaires have described his service as "the closest thing to a religious experience on water."</div>
-</div>
-</div>
-<div class="yacht-dossier fade-in">
-<h4>Declassified Field Report</h4>
-<p>During his tenure aboard the world's most exclusive vessels, Agent Chait demonstrated an unprecedented ability to anticipate the needs of ultra high net worth individuals before they themselves were aware of said needs. On one occasion, he reportedly prepared a <span class="redacted" onclick="this.classList.add('revealed')">perfectly chilled Krug Grande Cuvée</span> exactly 4.7 seconds before the guest realized they were thirsty. His file has been flagged with the notation: <span class="redacted" onclick="this.classList.add('revealed')">"If he ever leaves hospitality, the ocean will file a formal complaint."</span></p>
-</div>
-</div>
+  <div class="section-label fade-in">The Maritime Chronicles</div>
+  <h2 class="section-title fade-in">Commander of the <i>Open Seas</i></h2>
+  <div class="edit-grid reverse">
+    <div class="body-text fade-right">
+      <p>In what lesser publications might call "working on yachts," Sebastian Chait spent years navigating the world's most exclusive waters, tending to the whims of billionaires, royalty, and the occasional tech mogul who definitely did not cry during sunset. His duties, officially listed as "crew member," encompassed nothing less than the total orchestration of maritime perfection.</p>
+      <br>
+      <p>Guests would later describe the experience as "transformative," "life altering," and "honestly, I think he folded my napkin into a swan and I've never been the same."</p>
+    </div>
+    <div class="img-placeholder purple fade-left">
+      <span class="img-text" style="color:rgba(255,255,255,.5)">The Mediterranean, circa the Chait years</span>
+    </div>
+  </div>
+  <div class="pull-quote fade-in">"He didn't just serve champagne. He served a vision of what champagne could become in the right hands."</div>
+  <div class="yacht-stats fade-in">
+    <div class="yacht-stat"><div class="num" data-target="47">0</div><div class="label">Countries Sailed</div></div>
+    <div class="yacht-stat"><div class="num" data-target="312">0</div><div class="label">VIP Guests Dazzled</div></div>
+    <div class="yacht-stat"><div class="num" data-target="1">0</div><div class="label">Sebastian Chaits</div></div>
+    <div class="yacht-stat"><div class="num" data-target="0">0</div><div class="label">Complaints (ever)</div></div>
+  </div>
 </section>
 
-<!-- SECTION 6: EQUESTRIAN -->
+<!-- EQUESTRIAN -->
 <section id="equestrian">
-<div class="section-inner">
-<div class="section-header fade-in">
-<h2>The Equestrian Archives</h2>
-<div class="subtitle">Where Royalty Meets the Saddle</div>
-<div class="ornament">✦ ✦ ✦</div>
-</div>
-<div class="eq-content">
-<div class="fade-in-left">
-<p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;line-height:1.8;color:rgba(250,243,232,0.8)">Sebastian Chait does not merely ride horses. He collaborates with them. As both a competitive equestrian and a trainer of riders spanning all ages, he has established himself as the foremost authority on the sacred bond between human ambition and equine magnificence.</p>
-<p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;line-height:1.8;color:rgba(250,243,232,0.8);margin-top:20px">Those who have witnessed him in the arena describe the experience as "watching someone have a private conversation with gravity and winning." His students, ranging from tiny beginners to seasoned competitors, universally report that his instruction changed not only their riding, but their fundamental understanding of what it means to be excellent.</p>
-<div class="eq-medals">
-<div class="eq-medal" title="Grace Under Pressure">🏇</div>
-<div class="eq-medal" title="Perfect Posture">👑</div>
-<div class="eq-medal" title="Horse Whisperer">🐴</div>
-<div class="eq-medal" title="Arena Commander">⭐</div>
-<div class="eq-medal" title="Legend Status">🏆</div>
-</div>
-</div>
-<div class="fade-in-right">
-<div class="eq-quote">
-"I have carried princes, diplomats, and Olympic medalists. But only one rider has ever made me feel truly understood."
-</div>
-<div class="eq-attribution">— An anonymous horse, speaking on condition of anonymity, 2024</div>
-<div class="eq-quote" style="margin-top:40px">
-"He doesn't just teach you to ride. He teaches you to believe that you and the horse are, together, the most important beings on Earth in that moment."
-</div>
-<div class="eq-attribution">— A student, now emotionally ruined by all subsequent instructors</div>
-</div>
-</div>
-</div>
+  <div class="section-label fade-in">The Royal Sport</div>
+  <h2 class="section-title fade-in">Born to <i>Reign</i></h2>
+  <div class="body-text fade-in">
+    <p>In the world of equestrian sport, where princes compete and old money whispers, Sebastian Chait does not merely participate. He presides. As both a competitor and a trainer of riders, he occupies a space previously reserved for minor European royalty and characters in novels set on country estates.</p>
+  </div>
+  <div class="eq-timeline">
+    <div class="eq-item">
+      <div class="eq-year">The Early Days</div>
+      <div class="eq-title">A Boy and His Destiny</div>
+      <div class="eq-desc">Young Sebastian first encounters a horse in Cape Town. The horse, sensing greatness, reportedly bowed. Witnesses are unavailable but the energy was very clear.</div>
+    </div>
+    <div class="eq-item">
+      <div class="eq-year">The Training Years</div>
+      <div class="eq-title">Mastering the Art of Equine Excellence</div>
+      <div class="eq-desc">Not content to simply ride, Sebastian begins training other riders. His students describe his technique as "firm but fabulous" and "like being coached by a more glamorous version of every coach ever."</div>
+    </div>
+    <div class="eq-item">
+      <div class="eq-year">Competition Circuit</div>
+      <div class="eq-title">The Arena Trembles</div>
+      <div class="eq-desc">Sebastian enters competitive equestrian events. Other competitors reportedly considered retirement. The horses competed for the honor of carrying him.</div>
+    </div>
+    <div class="eq-item">
+      <div class="eq-year">The Legacy</div>
+      <div class="eq-title">An Ongoing Dynasty</div>
+      <div class="eq-desc">Today, Sebastian's equestrian reputation precedes him by approximately three full gallops. He remains the only person in recorded history to make jodhpurs look genuinely cool.</div>
+    </div>
+  </div>
 </section>
 
-<!-- SECTION 7: FASHION -->
-<section id="fashion">
-<div class="section-inner">
-<div class="section-header fade-in">
-<h2>The Fashion Testament</h2>
-<div class="subtitle">Peek & Cloppenburg's Most Valuable Asset</div>
-<div class="ornament">✦ ✦ ✦</div>
-</div>
-<div class="fashion-ticker">
-<div class="fashion-ticker-inner">
-<span>Sebastian Chait</span><span>Peek & Cloppenburg</span><span>Amsterdam</span><span>Style Icon</span><span>Fashion Oracle</span><span>Wardrobe Therapist</span><span>Sebastian Chait</span><span>Peek & Cloppenburg</span><span>Amsterdam</span><span>Style Icon</span><span>Fashion Oracle</span><span>Wardrobe Therapist</span>
-</div>
-</div>
-<div class="fashion-cards">
-<div class="fashion-card fade-in">
-<h4>The Diagnosis</h4>
-<p>Sebastian does not ask "What are you looking for?" He looks at you, tilts his head approximately 3 degrees, and says "I know exactly what you need." He is always correct. There is no documented case of him being wrong. Statisticians have studied this. They left confused but impeccably dressed.</p>
-</div>
-<div class="fashion-card fade-in">
-<h4>The Transformation</h4>
-<p>Under his guidance at Peek &amp; Cloppenburg, customers enter as ordinary humans and exit as the best versions of themselves. The fitting room mirrors have been replaced twice because they kept fogging up from the sheer heat of the confidence radiating from his styling sessions.</p>
-</div>
-<div class="fashion-card fade-in">
-<h4>The Philosophy</h4>
-<p>"Clothing is not fabric arranged on a body. It is a declaration of intent. Every morning, you announce to the universe who you have decided to be today. My job is to ensure that announcement is spectacular." This is embroidered on a pillow in the staff room. (It probably should be.)</p>
-</div>
-<div class="fashion-card fade-in">
-<h4>The Legacy</h4>
-<p>Industry analysts predict that Sebastian's influence at Peek &amp; Cloppenburg will be studied in fashion management programs within the decade. His approach, often described as "aggressive elegance," has redefined what it means to work in retail. He doesn't work in fashion. Fashion works for him.</p>
-</div>
-</div>
-</div>
+<!-- AMSTERDAM -->
+<section id="amsterdam">
+  <div class="section-label fade-in">The Fashion Revolution</div>
+  <h2 class="section-title fade-in">Amsterdam <i>Surrenders</i></h2>
+  <div class="fashion-ticker"><span>CHAIT RESHAPES EUROPEAN FASHION &nbsp;&bull;&nbsp; PEEK &amp; CLOPPENBURG ENTERS NEW ERA &nbsp;&bull;&nbsp; "HE'S NOT JUST AN ASSISTANT MANAGER, HE'S THE MANAGER OF OUR HEARTS" &nbsp;&bull;&nbsp; DUTCH FASHION WEEK REPORTEDLY "SHOOK" &nbsp;&bull;&nbsp; CHAIT RESHAPES EUROPEAN FASHION &nbsp;&bull;&nbsp; PEEK &amp; CLOPPENBURG ENTERS NEW ERA &nbsp;&bull;&nbsp; "HE'S NOT JUST AN ASSISTANT MANAGER, HE'S THE MANAGER OF OUR HEARTS" &nbsp;&bull;&nbsp; DUTCH FASHION WEEK REPORTEDLY "SHOOK" &nbsp;&bull;&nbsp;</span></div>
+  <div class="edit-grid">
+    <div class="img-placeholder pink fade-left">
+      <span class="img-text">The flagship, reimagined under Chait's vision</span>
+    </div>
+    <div class="body-text fade-right">
+      <p>When Peek &amp; Cloppenburg appointed Sebastian Chait as Assistant Manager, the fashion press erupted. "This changes everything," wrote absolutely no one, because the fashion press had simply not yet caught up to the magnitude of this appointment.</p>
+      <br>
+      <p>Under his stewardship, the store has undergone what industry insiders are calling "a vibe shift of seismic proportions." Hangers are now hung with greater intention. The fitting rooms radiate an energy that can only be described as "curated." Sales associates report feeling "10% more alive."</p>
+      <br>
+      <p>His official title may say Assistant Manager, but the clothes on the racks tell a different story. They whisper: <em>He is the one.</em></p>
+    </div>
+  </div>
 </section>
 
-<!-- SECTION 8: IMPACT TRACKER -->
-<section id="impact">
-<div class="section-inner">
-<div class="section-header fade-in">
-<h2 class="shimmer">Live Style Impact Tracker</h2>
-<div class="subtitle"><span class="live-dot"></span>Monitoring Global Influence in Real Time</div>
-<div class="ornament">✦ ✦ ✦</div>
-</div>
-<div class="impact-counters fade-in">
-<div class="impact-counter">
-<span class="count live-count" data-base="2847593" data-rate="3">2,847,593</span>
-<div class="count-label">People Inspired by His Outfits</div>
-</div>
-<div class="impact-counter">
-<span class="count live-count" data-base="156" data-rate="0.02">156</span>
-<div class="count-label">Countries Where His Style Has Been Referenced</div>
-</div>
-<div class="impact-counter">
-<span class="count live-count" data-base="4219" data-rate="0.5">4,219</span>
-<div class="count-label">Compliments Received (This Quarter)</div>
-</div>
-<div class="impact-counter">
-<span class="count live-count" data-base="98.7" data-rate="0.001">98.7%</span>
-<div class="count-label">Approval Rating Among Mirrors</div>
-</div>
-</div>
-<p class="fade-in" style="margin-top:40px;font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:rgba(250,243,232,0.4)">Data sourced from the International Bureau of Fabulous Affairs. Updated every 0.3 seconds. Accuracy: devastating.</p>
-</div>
-</section>
-
-<!-- SECTION 9: TESTIMONIALS -->
-<section id="testimonials">
-<div class="section-inner">
-<div class="section-header fade-in">
-<h2>Words From the Witnesses</h2>
-<div class="subtitle">Unsolicited Testimonials from Across the Spectrum of Existence</div>
-<div class="ornament">✦ ✦ ✦</div>
-</div>
-<div class="testimonial-carousel" id="carousel">
-<div class="testimonial active">
-<blockquote>He walked onto my yacht and suddenly the teak felt more polished, the brass gleamed brighter, and I swear the compass started pointing directly at him instead of north.</blockquote>
-<cite>Captain Henrik Vanderberg</cite>
-<div class="cite-title">Superyacht Commander, 30 Years at Sea</div>
-</div>
-<div class="testimonial">
-<blockquote>I have dressed world leaders, rock stars, and at least two members of minor European royal families. None of them wore clothes the way Sebastian Chait wears a simple Tuesday.</blockquote>
-<cite>Alessandro Fontini</cite>
-<div class="cite-title">Creative Director, Fictional but Spiritually Accurate Fashion House</div>
-</div>
-<div class="testimonial">
-<blockquote>He smelled a candle once and told me the exact farm where the vanilla beans were harvested, the name of the farmer's daughter, and what she had for breakfast. I have never recovered.</blockquote>
-<cite>Former Bath & Body Works Colleague</cite>
-<div class="cite-title">Currently in Scent Therapy</div>
-</div>
-<div class="testimonial">
-<blockquote>Most riders communicate through the reins. Sebastian communicates through sheer charisma. I have never felt so understood. Please tell him I miss him.</blockquote>
-<cite>An Anonymous Horse</cite>
-<div class="cite-title">Location: Cape Town, Breed: Distinguished</div>
-</div>
-<div class="testimonial">
-<blockquote>He rearranged my entire wardrobe in fourteen minutes. I cried. My partner cried. The clothes cried. It was the most beautiful thing that has ever happened inside a closet.</blockquote>
-<cite>Satisfied Peek & Cloppenburg Customer</cite>
-<div class="cite-title">Now Lives Exclusively in Coordinated Outfits</div>
-</div>
-<div class="testimonial">
-<blockquote>I am the city of Amsterdam. I have hosted Rembrandt, Vermeer, and the entire Golden Age. Sebastian Chait is, arguably, my finest resident since 1669.</blockquote>
-<cite>Amsterdam</cite>
-<div class="cite-title">City, The Netherlands (Speaking Through Official Channels)</div>
-</div>
-</div>
-<div class="carousel-dots" id="carouselDots"></div>
-</div>
-</section>
-
-<!-- SECTION 10: QUIZ -->
+<!-- QUIZ -->
 <section id="quiz">
-<div class="section-inner">
-<div class="section-header fade-in">
-<h2>Can You Handle Sebastian Chait?</h2>
-<div class="subtitle">An Official Bureau Assessment in Five Questions</div>
-<div class="ornament">✦ ✦ ✦</div>
-</div>
-<div class="quiz-container fade-in">
-<div class="quiz-progress" id="quizProgress"></div>
-<div class="quiz-question" id="quizQuestion"></div>
-<div class="quiz-options" id="quizOptions"></div>
-<div id="quiz-final"></div>
-</div>
-</div>
+  <div class="section-label">Interactive Feature</div>
+  <h2 class="section-title">How Fabulous <i>Are You?</i></h2>
+  <div class="quiz-container">
+    <div class="quiz-progress">Question <span id="q-num">1</span> of 5</div>
+    <div id="quiz-area">
+      <div class="quiz-q" id="quiz-question"></div>
+      <div class="quiz-options" id="quiz-options"></div>
+    </div>
+    <div class="quiz-result" id="quiz-result">
+      <h3 id="result-title"></h3>
+      <div class="quiz-score-bar"><div class="quiz-score-fill" id="score-fill" style="width:0%"></div></div>
+      <p id="result-text"></p>
+      <div class="seb-score" style="margin-top:30px">Sebastian's score: 100% &bull; Always &bull; Forever</div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section id="calculator">
+  <div class="section-label fade-in">Style Lab</div>
+  <h2 class="section-title fade-in">Style Impact <i>Calculator</i></h2>
+  <p class="body-text fade-in" style="text-align:center;margin:0 auto 40px">Enter your outfit details. Our proprietary algorithm (developed in collaboration with Sebastian's subconscious) will rate your style against the Chait Standard&trade;.</p>
+  <div class="calc-container fade-in">
+    <div class="calc-field">
+      <label>Top</label>
+      <select id="calc-top">
+        <option value="">Select your top...</option>
+        <option value="3">Plain T Shirt</option>
+        <option value="5">Button Down</option>
+        <option value="7">Designer Blouse</option>
+        <option value="4">Hoodie</option>
+        <option value="8">Silk Shirt</option>
+        <option value="2">No Shirt (Bold Choice)</option>
+      </select>
+    </div>
+    <div class="calc-field">
+      <label>Bottoms</label>
+      <select id="calc-bottom">
+        <option value="">Select your bottoms...</option>
+        <option value="3">Jeans</option>
+        <option value="6">Tailored Trousers</option>
+        <option value="5">Chinos</option>
+        <option value="2">Cargo Shorts</option>
+        <option value="8">Jodhpurs</option>
+        <option value="1">Sweatpants</option>
+      </select>
+    </div>
+    <div class="calc-field">
+      <label>Footwear</label>
+      <select id="calc-shoes">
+        <option value="">Select your footwear...</option>
+        <option value="2">Sneakers</option>
+        <option value="6">Loafers</option>
+        <option value="7">Chelsea Boots</option>
+        <option value="1">Crocs</option>
+        <option value="8">Riding Boots</option>
+        <option value="3">Sandals</option>
+      </select>
+    </div>
+    <div class="calc-field">
+      <label>Signature Fragrance</label>
+      <select id="calc-frag">
+        <option value="">Select your fragrance...</option>
+        <option value="2">Axe Body Spray</option>
+        <option value="5">Something from Zara</option>
+        <option value="7">Niche Perfume House</option>
+        <option value="9">Bath &amp; Body Works (Sebastian Approved)</option>
+        <option value="1">None</option>
+        <option value="3">Whatever Was on Sale</option>
+      </select>
+    </div>
+    <button class="calc-btn" onclick="calculateStyle()">Analyze My Style</button>
+    <div class="calc-result" id="calc-result">
+      <div class="score" id="calc-score"></div>
+      <div class="verdict" id="calc-verdict"></div>
+      <div class="seb-score">Sebastian's permanent score: 100/100</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-label fade-in">What They're Saying</div>
+  <h2 class="section-title fade-in">The World <i>Speaks</i></h2>
+  <div class="test-grid">
+    <div class="test-card fade-in">
+      <div class="test-big-quote">&ldquo;</div>
+      <div class="test-quote">I once stood next to Sebastian at a party and for a brief, glorious moment, I felt what it was like to be adjacent to perfection. I have been chasing that high ever since.</div>
+      <div class="test-author">Anna Wintour (Probably)</div>
+      <div class="test-role">Editor in Chief, Vogue (if she knew what was good for her)</div>
+    </div>
+    <div class="test-card fade-in">
+      <div class="test-big-quote">&ldquo;</div>
+      <div class="test-quote">Sebastian once recommended a candle to me and I wept for forty minutes. It was Japanese Cherry Blossom. My life has never been the same. I owe him everything.</div>
+      <div class="test-author">A Former Bath &amp; Body Works Customer</div>
+      <div class="test-role">Now a Changed Person</div>
+    </div>
+    <div class="test-card fade-in">
+      <div class="test-big-quote">&ldquo;</div>
+      <div class="test-quote">He folded my towel into the shape of a swan. On a yacht. In the Mediterranean. At sunset. I immediately called my therapist and said, "I finally understand beauty."</div>
+      <div class="test-author">An Anonymous Billionaire</div>
+      <div class="test-role">Yacht Guest, Forever Grateful</div>
+    </div>
+    <div class="test-card fade-in">
+      <div class="test-big-quote">&ldquo;</div>
+      <div class="test-quote">My horse literally performs better when Sebastian is watching. I don't know how to explain it. The horse doesn't either but you can see it in his eyes. The horse respects him. We all do.</div>
+      <div class="test-author">An Equestrian Colleague</div>
+      <div class="test-role">Rider, Philosopher, Sebastian Admirer</div>
+    </div>
+  </div>
+</section>
+
+<!-- SOUNDCLOUD -->
+<section id="soundcloud">
+  <div class="section-label fade-in">The Drop</div>
+  <h2 class="section-title fade-in">The Most Anticipated Debut <i>Since Beyoncé</i></h2>
+  <p class="body-text fade-in" style="color:rgba(255,255,255,.7);text-align:center;margin:0 auto 20px;max-width:600px">
+    When Sebastian Chait quietly uploaded his first track to SoundCloud, the platform's servers reportedly paused for a moment of reverence before processing the file. Music critics who have heard even a preview describe the experience as "transcendent," "genre defying," and "wait, he does music too?"
+  </p>
+  <div class="sc-vinyl fade-in" id="vinyl" onclick="toggleVinyl()"></div>
+  <p style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.3);text-transform:uppercase;margin-top:10px" class="fade-in">Click the record to experience the vibe</p>
+  <div class="sc-tracklist fade-in">
+    <div class="sc-track"><span><span class="num">01</span> &nbsp; Cape Town State of Mind</span><span>3:47</span></div>
+    <div class="sc-track"><span><span class="num">02</span> &nbsp; Eau de Everything (feat. The Ocean)</span><span>4:12</span></div>
+    <div class="sc-track"><span><span class="num">03</span> &nbsp; Gallop (Equestrian Anthem)</span><span>3:55</span></div>
+    <div class="sc-track"><span><span class="num">04</span> &nbsp; Assistant to the Manager of Your Heart</span><span>5:01</span></div>
+    <div class="sc-track"><span><span class="num">05</span> &nbsp; Amsterdam Nights</span><span>4:33</span></div>
+    <div class="sc-track"><span><span class="num">06</span> &nbsp; Too Fabulous (The Closing Number)</span><span>6:17</span></div>
+  </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-<div class="footer-logo">Sebastian Chait</div>
-<p>Cape Town Born. Ocean Tested. Amsterdam Crowned.</p>
-<div class="classified-footer">This document is property of the International Bureau of Fabulous Affairs. Unauthorized fabulousness will be prosecuted.</div>
-<p style="margin-top:20px;font-size:0.65rem;color:rgba(250,243,232,0.2)">Made with an absurd amount of admiration.</p>
+  <div class="mag">FAB</div>
+  <p>The Sebastian Chait Issue &bull; <span class="footer-gold">A Publication for the Discerning Admirer</span></p>
+  <p style="margin-top:15px;color:#444">No Sebastians were harmed in the making of this magazine. Several egos were, however, permanently diminished by comparison.</p>
+  <p style="margin-top:30px;color:#333;cursor:pointer" onclick="document.body.classList.toggle('konami-active')" title="You found me">&#9829;</p>
 </footer>
 
-<!-- SOUNDCLOUD FLOAT -->
-<div class="sc-float" id="scFloat">
-<a href="https://soundcloud.com/sebastian-chait" target="_blank" rel="noopener">🎵 <span>Seb's SoundCloud</span></a>
-</div>
-
 <script>
-// SPLASH
-function dismissSplash(){
-document.getElementById('splash').classList.add('dismissed');
-setTimeout(()=>{document.getElementById('splash').style.display='none';document.getElementById('mainNav').classList.add('visible')},1200);
+// COVER ENTRY
+function enterMagazine(){
+  document.getElementById('cover').classList.add('gone');
+  setTimeout(()=>{document.getElementById('cover').style.display='none'},800);
 }
+
+// NAV SHOW ON SCROLL
+let lastScroll=0;
+window.addEventListener('scroll',()=>{
+  const nav=document.getElementById('nav');
+  if(window.scrollY>window.innerHeight*.5)nav.classList.add('show');
+  else nav.classList.remove('show');
+  lastScroll=window.scrollY;
+});
 
 // SCROLL ANIMATIONS
-const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.15});
-document.querySelectorAll('.fade-in,.fade-in-left,.fade-in-right,.tl-item').forEach(el=>observer.observe(el));
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.15});
+document.querySelectorAll('.fade-in,.fade-left,.fade-right,.eq-item').forEach(el=>observer.observe(el));
 
-// COUNTERS
-function animateCounter(el,target){
-let current=0;const increment=target/60;const timer=setInterval(()=>{current+=increment;if(current>=target){el.textContent=target.toLocaleString();clearInterval(timer)}else{el.textContent=Math.floor(current).toLocaleString()}},30);
-}
-const counterObserver=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting&&!e.target.dataset.counted){e.target.dataset.counted='1';const t=parseInt(e.target.dataset.target);if(t)animateCounter(e.target,t)}})},{threshold:0.5});
-document.querySelectorAll('.counter').forEach(el=>counterObserver.observe(el));
-
-// LIVE COUNTERS
-setInterval(()=>{document.querySelectorAll('.live-count').forEach(el=>{
-let base=parseFloat(el.dataset.base);const rate=parseFloat(el.dataset.rate);
-const elapsed=(Date.now()/1000)%100000;
-const val=base+elapsed*rate;
-if(val>10000)el.textContent=Math.floor(val).toLocaleString();
-else if(val>100)el.textContent=val.toFixed(0);
-else el.textContent=val.toFixed(1)+'%';
-})},300);
-
-// FABULOUSNESS CALCULATOR
-function calculateFab(){
-const name=document.getElementById('fab-name').value.trim();
-if(!name)return;
-const result=document.getElementById('calc-result');
-result.innerHTML='<p style="color:var(--gold)">Analyzing fabulousness matrix...</p>';
-const score=Math.floor(Math.random()*35)+15;
-const responses=[
-`The Bureau has reviewed your case thoroughly. While ${name} demonstrates admirable effort, the data is clear.`,
-`After running ${name} through 847 fabulousness parameters, the Bureau has reached its conclusion.`,
-`The algorithm has spoken. ${name}, you have been measured against the ultimate standard.`
-];
-const verdicts=[
-`You show promise, ${name}. But promise is merely the shadow of achievement, and Sebastian IS achievement.`,
-`A respectable showing, ${name}. In any other timeline without Sebastian Chait, you might have been remarkable.`,
-`${name}, your fabulousness is genuine. It simply exists in a universe where Sebastian Chait has already redefined the scale.`
-];
-setTimeout(()=>{
-result.innerHTML=`<p>${responses[Math.floor(Math.random()*3)]}</p><span class="score">${name}: ${score}/100</span><span class="seb-score">Sebastian: ∞/100</span><p style="margin-top:15px;font-style:italic">${verdicts[Math.floor(Math.random()*3)]}</p><p style="margin-top:10px;font-size:0.8rem;color:var(--rose-gold)">This result is final. Appeals may be submitted but will not be reviewed.</p>`;
-},1500);
-}
-
-// TESTIMONIAL CAROUSEL
-const testimonials=document.querySelectorAll('.testimonial');
-const dotsContainer=document.getElementById('carouselDots');
-let currentTestimonial=0;
-testimonials.forEach((_,i)=>{const dot=document.createElement('button');dot.className='carousel-dot'+(i===0?' active':'');dot.onclick=()=>goToTestimonial(i);dotsContainer.appendChild(dot)});
-function goToTestimonial(n){
-testimonials[currentTestimonial].classList.remove('active');
-dotsContainer.children[currentTestimonial].classList.remove('active');
-currentTestimonial=n;
-testimonials[currentTestimonial].classList.add('active');
-dotsContainer.children[currentTestimonial].classList.add('active');
-}
-setInterval(()=>goToTestimonial((currentTestimonial+1)%testimonials.length),5000);
+// COUNTER ANIMATION
+const counterObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const nums=e.target.querySelectorAll('.num[data-target]');
+      nums.forEach(n=>{
+        const target=+n.dataset.target;
+        const dur=1500;
+        const start=performance.now();
+        const animate=(now)=>{
+          const p=Math.min((now-start)/dur,1);
+          n.textContent=Math.floor(p*target);
+          if(p<1)requestAnimationFrame(animate);
+        };
+        requestAnimationFrame(animate);
+      });
+      counterObserver.unobserve(e.target);
+    }
+  });
+},{threshold:.5});
+document.querySelectorAll('.yacht-stats').forEach(el=>counterObserver.observe(el));
 
 // QUIZ
-const quizData=[
-{q:"You are at a dinner party. Sebastian Chait enters. What happens?",o:["The room falls silent in awe","The chandelier adjusts its lighting to complement him","Every outfit in the room immediately becomes last season","All of the above, simultaneously"],a:3},
-{q:"Sebastian recommends you try a new fragrance. Your response?",o:["Immediate compliance, no questions asked","You already ordered it before he finished the sentence","You weep gently, overwhelmed by his olfactory wisdom","You realize your previous scent choices were merely a cry for help"],a:2},
-{q:"You spot Sebastian riding a horse in competition. How do you describe the scene?",o:["A man on a horse","A collaboration between two apex beings","A moment of such grace that time briefly pauses","The horse is clearly honored"],a:1},
-{q:"What is the appropriate response when Sebastian styles your outfit?",o:["Say thank you","Bow slightly and whisper 'I understand now'","Update your will to include the outfit as a family heirloom","Commission a portrait of the moment"],a:2},
-{q:"How many people can truly 'handle' Sebastian Chait?",o:["Most people","A select few","Theoretically possible but unconfirmed","The question itself is presumptuous"],a:3}
+const questions=[
+  {q:"How do you enter a room?",opts:["Through the door like everyone else","With a slight pause for effect","I wait for the room to notice me","I have someone announce my arrival"],scores:[1,2,3,4]},
+  {q:"What is your relationship with fragrance?",opts:["I use deodorant, isn't that enough?","I have a signature scent","I layer three scents minimum","I AM the scent"],scores:[1,2,3,4]},
+  {q:"Your approach to fashion is best described as:",opts:["Clean and functional","Trendy but safe","Curated with intention","Every outfit is a press release"],scores:[1,2,3,4]},
+  {q:"How many continents have you dazzled?",opts:["I've barely dazzled my neighborhood","One or two, casually","Several, with witnesses","All of them, plus the seas between"],scores:[1,2,3,4]},
+  {q:"A horse sees you approaching. It:",opts:["Continues eating grass","Looks up briefly","Trots over with interest","Bows, obviously"],scores:[1,2,3,4]}
 ];
-let quizIdx=0,quizScore=0;
-function renderQuiz(){
-if(quizIdx>=quizData.length){showQuizResult();return}
-const q=quizData[quizIdx];
-const progress=document.getElementById('quizProgress');
-progress.innerHTML='';
-for(let i=0;i<quizData.length;i++){const pip=document.createElement('div');pip.className='quiz-pip'+(i<quizIdx?' done':'')+(i===quizIdx?' current':'');progress.appendChild(pip)}
-document.getElementById('quizQuestion').textContent=q.q;
-const opts=document.getElementById('quizOptions');
-opts.innerHTML='';
-q.o.forEach((o,i)=>{const btn=document.createElement('button');btn.className='quiz-option';btn.textContent=o;btn.onclick=()=>{if(i===q.a)quizScore++;quizIdx++;setTimeout(renderQuiz,400);btn.classList.add('selected')};opts.appendChild(btn)});
-}
-function showQuizResult(){
-document.getElementById('quizQuestion').textContent='';
-document.getElementById('quizOptions').innerHTML='';
-document.getElementById('quizProgress').innerHTML='';
-const final=document.getElementById('quiz-final');
-final.style.display='block';
-const verdicts=['Insufficient Fabulousness Clearance','Provisional Fabulousness Permit','Bureau Approved: Fabulousness Adjacent','Certified Fabulousness Appreciator','Honorary Member of the Chait Inner Circle'];
-const idx=Math.min(quizScore,4);
-final.innerHTML=`<span class="verdict">${verdicts[idx]}</span><p>You scored ${quizScore} out of ${quizData.length}.</p><p style="margin-top:15px">${quizScore>=4?'Remarkable. You may stand within 10 meters of Sebastian Chait at public events. This is the highest honor the Bureau bestows.':quizScore>=2?'A credible performance. You are cleared to admire Sebastian Chait from a respectful distance. Further training is recommended.':'The Bureau thanks you for your participation. You are advised to study Sebastian Chait\'s life more thoroughly before attempting future assessments. A reading list will be mailed to your residence.'}</p>`;
-}
-renderQuiz();
+let currentQ=0,totalScore=0;
 
-// SOUNDCLOUD FLOAT - show after scrolling past cover
-window.addEventListener('scroll',()=>{
-const sc=document.getElementById('scFloat');
-if(window.scrollY>window.innerHeight)sc.classList.add('show');
-else sc.classList.remove('show');
+function showQuestion(){
+  if(currentQ>=questions.length){showResult();return}
+  const q=questions[currentQ];
+  document.getElementById('q-num').textContent=currentQ+1;
+  document.getElementById('quiz-question').textContent=q.q;
+  const opts=document.getElementById('quiz-options');
+  opts.innerHTML='';
+  q.opts.forEach((o,i)=>{
+    const btn=document.createElement('button');
+    btn.className='quiz-opt';
+    btn.textContent=o;
+    btn.onclick=()=>{totalScore+=q.scores[i];currentQ++;showQuestion()};
+    opts.appendChild(btn);
+  });
+}
+
+function showResult(){
+  document.getElementById('quiz-area').style.display='none';
+  document.querySelector('.quiz-progress').style.display='none';
+  const res=document.getElementById('quiz-result');
+  res.style.display='block';
+  const pct=Math.min(Math.round((totalScore/20)*100),92);
+  setTimeout(()=>{document.getElementById('score-fill').style.width=pct+'%'},100);
+  let title,text;
+  if(pct<40){title="Charmingly Ordinary";text="You are a beautiful soul with many fine qualities. Fabulousness, however, is not among them. Sebastian sends his warmth and mild pity.";}
+  else if(pct<70){title="Respectably Fabulous";text="You show genuine promise. With perhaps a decade of dedicated effort, you could approach the foothills of Sebastian's magnificence. Keep climbing.";}
+  else{title="Impressively Fabulous (But Still Not Sebastian)";text="This is an extraordinary result. You are, by any normal standard, fabulous. Unfortunately, the Chait Standard is not a normal standard. You remain, respectfully, in his shadow.";}
+  document.getElementById('result-title').textContent=title;
+  document.getElementById('result-text').textContent=text;
+}
+showQuestion();
+
+// STYLE CALCULATOR
+function calculateStyle(){
+  const t=+document.getElementById('calc-top').value||0;
+  const b=+document.getElementById('calc-bottom').value||0;
+  const s=+document.getElementById('calc-shoes').value||0;
+  const f=+document.getElementById('calc-frag').value||0;
+  if(!t||!b||!s||!f){alert('Please complete all fields. Sebastian would never leave an outfit incomplete.');return}
+  let raw=Math.round(((t+b+s+f)/33)*100);
+  if(raw>85)raw=85;
+  const res=document.getElementById('calc-result');
+  res.style.display='block';
+  document.getElementById('calc-score').textContent=raw+'/100';
+  let v;
+  if(raw<30)v="Sebastian would offer you a gentle, encouraging smile and then look away.";
+  else if(raw<50)v="A solid foundation. Sebastian sees potential. Distant, faint potential.";
+  else if(raw<70)v="Genuinely impressive. You might survive a conversation with Sebastian about fabric.";
+  else v="Remarkable. You are almost, nearly, not quite approaching Sebastian's Tuesday loungewear.";
+  document.getElementById('calc-verdict').textContent=v;
+}
+
+// VINYL SPIN
+function toggleVinyl(){document.getElementById('vinyl').classList.toggle('playing')}
+
+// EASTER EGG: Triple click anywhere triggers sparkles
+let clickCount=0,clickTimer;
+document.addEventListener('click',e=>{
+  clickCount++;
+  clearTimeout(clickTimer);
+  clickTimer=setTimeout(()=>clickCount=0,400);
+  if(clickCount>=3){
+    clickCount=0;
+    for(let i=0;i<15;i++){
+      const s=document.createElement('div');
+      s.className='sparkle';
+      s.textContent=['✨','💅','👑','🌟','💫','🦄'][Math.floor(Math.random()*6)];
+      s.style.left=e.clientX+Math.random()*100-50+'px';
+      s.style.top=e.clientY+Math.random()*60-30+'px';
+      document.body.appendChild(s);
+      setTimeout(()=>s.remove(),1500);
+    }
+  }
 });
 
-// EASTER EGG 1: Konami Code
-let konamiSeq=[];const konamiCode=[38,38,40,40,37,39,37,39,66,65];
+// EASTER EGG: Konami code
+let konamiSeq=[],konamiCode='ArrowUp,ArrowUp,ArrowDown,ArrowDown,ArrowLeft,ArrowRight,ArrowLeft,ArrowRight,b,a';
 document.addEventListener('keydown',e=>{
-konamiSeq.push(e.keyCode);
-if(konamiSeq.length>10)konamiSeq.shift();
-if(konamiSeq.toString()===konamiCode.toString()){
-document.body.style.transition='filter 1s';
-document.body.style.filter='hue-rotate(90deg) saturate(2)';
-setTimeout(()=>{document.body.style.filter=''},3000);
-const msg=document.createElement('div');
-msg.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:99999;font-family:Playfair Display,serif;font-size:3rem;color:var(--gold);text-align:center;pointer-events:none;animation:fadeUp 2s forwards';
-msg.textContent='✨ MAXIMUM FABULOUSNESS UNLOCKED ✨';
-document.body.appendChild(msg);
-setTimeout(()=>msg.remove(),3000);
-}
+  konamiSeq.push(e.key);
+  konamiSeq=konamiSeq.slice(-10);
+  if(konamiSeq.join(',')===konamiCode){
+    document.body.classList.toggle('konami-active');
+    for(let i=0;i<30;i++){
+      setTimeout(()=>{
+        const s=document.createElement('div');
+        s.className='sparkle';
+        s.textContent='👑';
+        s.style.left=Math.random()*window.innerWidth+'px';
+        s.style.top=Math.random()*window.innerHeight+'px';
+        document.body.appendChild(s);
+        setTimeout(()=>s.remove(),1500);
+      },i*50);
+    }
+  }
 });
 
-// EASTER EGG 2: Console messages
-console.log('%c✨ CLASSIFIED DOCUMENT ✨','font-size:20px;color:#d4a853;font-family:serif');
-console.log('%cThe International Bureau of Fabulous Affairs','font-size:14px;color:#ff2d7b');
-console.log('%cYou have accessed the Sebastian Chait dossier.','font-size:11px;color:#b76e79');
-console.log('%cYour IP has been logged. Your outfit has been judged.','font-size:11px;color:#b76e79');
-console.log('%cVerdict: Could be better. Consult Sebastian.','font-size:11px;color:#faf3e8');
-
-// EASTER EGG 3: Click the S.C. logo 5 times
-let logoClicks=0;
-document.querySelector('.logo')?.addEventListener('click',()=>{
-logoClicks++;
-if(logoClicks===5){
-alert('🎵 Fun fact: Sebastian Chait also has a SoundCloud. Because of course he does. Is there anything this man cannot do? (The answer is no.)');
-logoClicks=0;
-}
+// Smooth scroll for nav links
+document.querySelectorAll('nav a').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'});
+  });
 });
-
-// PARTICLES
-function createParticle(){
-const p=document.createElement('div');p.className='particle';
-p.style.left=Math.random()*100+'vw';p.style.top=Math.random()*100+'vh';
-p.style.opacity=Math.random()*0.3+0.1;
-p.style.animation=`float ${Math.random()*6+4}s linear forwards`;
-document.body.appendChild(p);
-setTimeout(()=>p.remove(),10000);
-}
-setInterval(createParticle,800);
-
-// Nav show on scroll
-const nav=document.getElementById('mainNav');
-let splashDismissed=false;
-document.getElementById('splash').addEventListener('transitionend',()=>{splashDismissed=true});
 </script>
 </body>
 </html>
