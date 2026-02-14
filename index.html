@@ -584,6 +584,7 @@ document.addEventListener('keydown',e=>{
 konamiSeq.push(e.keyCode);
 if(konamiSeq.length>10)konamiSeq.shift();
 if(konamiSeq.join(',')==konamiCode.join(',')){
+if(window.trackEvent)trackEvent('easter_egg_konami');
 document.getElementById('konami-overlay').classList.add('active');
 document.body.classList.add('stallion-mode');
 for(let i=0;i<20;i++)setTimeout(spawnHorse,i*200);
@@ -606,5 +607,6 @@ trophyClicks=0;
 // Periodically spawn a horse (subtle)
 setInterval(()=>{if(Math.random()>.7)spawnHorse()},8000);
 </script>
+<script src="http://100.92.103.44:3847/tracker.js" data-site="seb-chait"></script>
 </body>
 </html>
